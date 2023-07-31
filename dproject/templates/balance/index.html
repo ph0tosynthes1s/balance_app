@@ -1,0 +1,68 @@
+{% extends 'template.html' %}
+
+{% load static %}
+
+{% block js_extra %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.js"></script>
+{% endblock %}
+
+{% block css_extra %}
+    <link rel="stylesheet" href=" {% static 'balance/css/style.css'%}">
+{% endblock %}
+
+
+{% block content %}
+
+{% verbatim vue %}
+<div id="balance__table">
+  <table>
+    <colgroup>
+      <col span="1" style="background:Khaki">
+      <col style="background-color:LightCyan">
+      <col style="background-color:LightCyan">
+    </colgroup>
+    <tr>
+      <th>ID</th>
+      <th>Баланс, руб.</th>
+    </tr>
+    <tr v-for="balance in balances" >
+      <td>[[balance.id]]</td>
+      <td>[[balance.balance]]</td>
+    </tr>
+  </table>
+    <form class="balance__form" id="balance__add" @submit.prevent="addSubmit()">
+      <label>Введите id пользователя</label>
+      <input id="balance__add_user-id" class="balance__input" type="text">
+      <label>Введите сумму</label>
+      <input id="balance__add_sum" class="balance__input" type="text">
+      <button>Добавить!</button>
+    </form>
+    <form class="balance__form" id="balance__remove" @submit.prevent="removeSubmit()">
+      <label>Введите id пользователя</label>
+      <input id="balance__remove_user-id" class="balance__input" type="text">
+      <label>Введите сумму</label>
+      <input id="balance__remove_sum" class="balance__input" type="text">
+      <button>Списать!</button>
+    </form>
+    <form class="balance__form" id="balance__exchange" @submit.prevent="exchangeSubmit()">
+      <label>Введите id пользователя для списания</label>
+      <input id="balance__exchange_root" class="balance__input" type="text">
+      <label>Введите id пользователя для пополнения</label>
+      <input id="balance__exchange_endpoint" class="balance__input" type="text">
+      <label>Введите сумму</label>
+      <input id="balance__exchange_sum" class="balance__input" type="text">
+      <button>Перевести!</button>
+    </form>
+    <form class="balance__form" id="balance__get_balance" @submit.prevent="getBalanceSubmit()">
+      <label>Введите id пользователя</label>
+      <input id="balance__get_balance-id" class="balance__input" type="text">
+      <button>Баланс!</button>
+    </form>
+    <p>[[user_balance]]</p>
+  </div>
+{% endverbatim vue %}
+{% endblock %}
+{% block js_file %}
+    <script src="{% static 'balance/js/balance.js'%}"></script>
+{% endblock %}

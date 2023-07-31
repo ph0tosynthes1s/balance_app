@@ -1,4 +1,6 @@
 # balance_app documentation
+`cd dproject`
+<br>
 `pip install -r requirements.txt` or `pip3 install -r requirements.txt`
 <br>
 In dproject folder you have SQL dump from PostgreSQL - djangoproject_db.sql. `Restore it in your pgAdmin.`
